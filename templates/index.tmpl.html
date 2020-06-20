@@ -4,12 +4,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
-<header>
-  <h1>tones.facu.tk</h1>
-  <button id="pingButton">Ping</button>
-</header>
 
-<div class="grid" id="grid"></div>
+<section>
+  <header>
+    <h1>tones.facu.tk</h1>
+  </header>
+  
+  <div class="grid" id="grid"></div>
+</section>
+
+<section>
+  <h1>Settings</h1>
+
+  <button id="pingButton">Ping</button>
+</section>
 
 <script>
 pingButton.onclick = async () => {
@@ -49,6 +57,19 @@ document.body.onload = () => {
 <style>
   body {
     margin: 0;
+    font-family: sans-serif;
+    display: flex;
+  }
+
+  html {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+  }
+
+  section {
+    min-width: 100vw;
+    scroll-snap-align: start;
   }
   
   * {

@@ -13,6 +13,6 @@ require (
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	golang.org/x/net v0.0.0-20150629084131-d9558e5c97f8 // indirect
-	golang.org/x/sys v0.0.0-20200615200032-f1bc736245b1 // indirect
+	golang.org/x/sys v0.0.0-20200620081246-981b61492c35 // indirect
 	gopkg.in/bluesuncorp/validator.v5 v5.9.1 // indirect
 )

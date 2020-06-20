@@ -56,5 +56,16 @@
   </div>
 </div>
 
+{{if .isDev}}
+  <script>
+    setInterval(async () => {
+      const ping = await fetch('/ping');
+      const response = ping.json();
+      const { timestamp } = response;
+      console.log(timestamp);
+    }, 5000);
+  </script>
+{{end}}
+
 </body>
 </html>

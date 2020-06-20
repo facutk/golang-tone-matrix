@@ -19,7 +19,7 @@ body {
 
 .box {
   background: tomato;
-  margin: 5px;
+  margin: 2px;
   color: white;
   font-weight: bold;
   flex: 1 0 auto;

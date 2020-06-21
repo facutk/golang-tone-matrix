@@ -27,6 +27,13 @@ pingButton.onclick = async () => {
   alert(message);
 };
 
+const handleBoxClick = (e) => {
+  const { id } = e.target;
+
+  const box = document.getElementById(id);
+  box.style.background = 'red';
+}
+
 document.body.onload = () => {
   for (let i = 0; i < 16; i += 1) {
     document.getElementById("grid").appendChild((() => {
@@ -37,13 +44,8 @@ document.body.onload = () => {
         row.appendChild((() => {
           const box = document.createElement("div");
           box.className = "box";
-
-          box.appendChild((() => {
-            const inner = document.createElement("div");
-            inner.className = "inner";
-
-            return inner;
-          })());
+          box.id = `${(16 - 1 - i).toString(16)}${j.toString(16)}`;
+          box.addEventListener("click", handleBoxClick);
 
           return box;
         })());
@@ -53,6 +55,7 @@ document.body.onload = () => {
     })());
   }
 }
+
 </script>
 <style>
   body {
@@ -102,16 +105,6 @@ document.body.onload = () => {
     float:left;
     display: block;
     padding-top: 100%;
-  }
-  .box .inner {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 </style>
 </body>

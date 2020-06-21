@@ -1,24 +1,7 @@
 <html>
 <head>
-  <title>golang tone matrix</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-</head>
-<body>
-
-<section>
-  <header>
-    <h1>tones.facu.tk</h1>
-  </header>
-  
-  <div class="grid" id="grid"></div>
-</section>
-
-<section>
-  <h1>Settings</h1>
-
-  <button id="pingButton">Ping</button>
-</section>
-
+<title>golang tone matrix</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script>
 let socket = new WebSocket("ws" + ((location.protocol.indexOf('s') > 0) ? 's' : '') + "://" + location.host + "/echo");
 console.log("Attempting Connection...");
@@ -43,7 +26,7 @@ socket.onmessage = (e) => {
   console.log("RESPONSE: " + e.data);
 }
 
-pingButton.onclick = async () => {
+const handlePingButtonClick = async () => {
   const response = await fetch('/ping');
   const json = await response.json();
   const { message } = json;
@@ -58,7 +41,7 @@ const handleBoxClick = (e) => {
   socket.send(id)
 }
 
-document.body.onload = () => {
+window.onload = () => {
   for (let i = 0; i < 16; i += 1) {
     document.getElementById("grid").appendChild((() => {
       const row = document.createElement("div");
@@ -78,58 +61,75 @@ document.body.onload = () => {
       return row;
     })());
   }
-}
 
+  pingButton.onclick = handlePingButtonClick;
+}
 </script>
 <style>
-  body {
-    margin: 0;
-    font-family: sans-serif;
-    display: flex;
-  }
+body {
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+}
 
-  html {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-  }
+html {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+}
 
-  section {
-    min-width: 100vw;
-    scroll-snap-align: start;
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
-  .grid {
-    margin: 0 auto;
-    max-width: 60vh;  
-    max-height: 60vh;
-    font-size: 1rem;
-  }
-  
-  .row {
-    display: flex;
-  }
-  
-  .box {
-    background: tomato;
-    margin: 2px;
-    color: white;
-    font-weight: bold;
-    flex: 1 0 auto;
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .box:after {
-    content: "";
-    float:left;
-    display: block;
-    padding-top: 100%;
-  }
+section {
+  min-width: 100vw;
+  scroll-snap-align: start;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.grid {
+  margin: 0 auto;
+  max-width: 60vh;  
+  max-height: 60vh;
+  font-size: 1rem;
+}
+
+.row {
+  display: flex;
+}
+
+.box {
+  background: tomato;
+  margin: 2px;
+  color: white;
+  font-weight: bold;
+  flex: 1 0 auto;
+  position: relative;
+  cursor: pointer;
+}
+
+.box:after {
+  content: "";
+  float:left;
+  display: block;
+  padding-top: 100%;
+}
 </style>
+</head>
+
+<body>
+  <section>
+    <header>
+      <h1>tones.facu.tk</h1>
+    </header>
+    
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section>
+    <h1>Settings</h1>
+
+    <button id="pingButton">Ping</button>
+  </section>
 </body>
 </html>

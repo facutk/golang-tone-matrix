@@ -10,6 +10,8 @@ import (
 	_ "github.com/heroku/x/hmetrics/onload"
 )
 
+var upgrader = websocket.Upgrader{}
+
 func echo(w http.ResponseWriter, r *http.Request) {
 	c, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -31,8 +33,6 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
-
-var upgrader = websocket.Upgrader{}
 
 func main() {
 	port := os.Getenv("PORT")

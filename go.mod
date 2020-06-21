@@ -1,6 +1,6 @@
 module github.com/heroku/go-getting-started
 
-go 1.12
+go 1.14
 
 require (
 	github.com/cosmtrek/air v1.12.1 // indirect

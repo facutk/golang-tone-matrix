@@ -20,7 +20,7 @@
 </section>
 
 <script>
-let socket = new WebSocket("ws://" + location.host + "/echo");
+let socket = new WebSocket("ws" + ((location.protocol.indexOf('s') > 0) ? 's' : '') + "://" + location.host + "/echo");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {

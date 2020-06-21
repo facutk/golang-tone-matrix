@@ -7,6 +7,7 @@ require (
 	github.com/creack/pty v1.1.11 // indirect
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/gin-gonic/gin v0.0.0-20150626140855-4cc2de6207f4
+	github.com/gorilla/websocket v1.4.2
 	github.com/heroku/x v0.0.0-20171004170240-705849e307dd
 	github.com/imdario/mergo v0.3.9 // indirect
 	github.com/manucorporat/sse v0.0.0-20150604091100-c142f0f1baea // indirect

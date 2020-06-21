@@ -20,6 +20,27 @@
 </section>
 
 <script>
+let socket = new WebSocket("ws://localhost:9090/echo");
+console.log("Attempting Connection...");
+
+socket.onopen = () => {
+  console.log("Successfully Connected");
+  socket.send("Hi From the Client!")
+};
+
+socket.onclose = event => {
+  console.log("Socket Closed Connection: ", event);
+  socket.send("Client Closed!")
+};
+
+socket.onerror = error => {
+  console.log("Socket Error: ", error);
+};
+
+socket.onmessage = (e) => {
+  console.log("RESPONSE: " + e.data);
+}
+
 pingButton.onclick = async () => {
   const response = await fetch('/ping');
   const json = await response.json();
@@ -32,6 +53,7 @@ const handleBoxClick = (e) => {
 
   const box = document.getElementById(id);
   box.style.background = 'red';
+  socket.send(id)
 }
 
 document.body.onload = () => {

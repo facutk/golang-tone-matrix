@@ -6,8 +6,33 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gorilla/websocket"
 	_ "github.com/heroku/x/hmetrics/onload"
 )
+
+func echo(w http.ResponseWriter, r *http.Request) {
+	c, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Print("upgrade:", err)
+		return
+	}
+	defer c.Close()
+	for {
+		mt, message, err := c.ReadMessage()
+		if err != nil {
+			log.Println("read:", err)
+			break
+		}
+		log.Printf("recv: %s", message)
+		err = c.WriteMessage(mt, message)
+		if err != nil {
+			log.Println("write:", err)
+			break
+		}
+	}
+}
+
+var upgrader = websocket.Upgrader{}
 
 func main() {
 	port := os.Getenv("PORT")
@@ -31,6 +56,8 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+	router.GET("/echo", gin.WrapF(echo))
 
 	router.Run(":" + port)
 }

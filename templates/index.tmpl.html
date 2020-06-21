@@ -20,7 +20,7 @@
 </section>
 
 <script>
-let socket = new WebSocket("ws://localhost:9090/echo");
+let socket = new WebSocket("ws://" + location.host + "/echo");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {
@@ -30,7 +30,9 @@ socket.onopen = () => {
 
 socket.onclose = event => {
   console.log("Socket Closed Connection: ", event);
-  socket.send("Client Closed!")
+  socket.send("Client Closed!");
+
+  setTimeout(() => location.reload(), 2000);
 };
 
 socket.onerror = error => {

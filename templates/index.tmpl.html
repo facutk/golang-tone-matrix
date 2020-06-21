@@ -3,12 +3,11 @@
 <title>golang tone matrix</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script>
-let socket = new WebSocket("ws" + ((location.protocol.indexOf('s') > 0) ? 's' : '') + "://" + location.host + "/echo");
+let socket = new WebSocket("ws" + ((location.protocol.indexOf('s') > 0) ? 's' : '') + "://" + location.host + "/ws");
 console.log("Attempting Connection...");
 
 socket.onopen = () => {
   console.log("Successfully Connected");
-  socket.send("Hi From the Client!")
 };
 
 socket.onclose = event => {
@@ -24,6 +23,8 @@ socket.onerror = error => {
 
 socket.onmessage = (e) => {
   console.log("RESPONSE: " + e.data);
+  const box = document.getElementById(e.data);
+  box.style.background = 'red';
 }
 
 const handlePingButtonClick = async () => {
@@ -37,7 +38,7 @@ const handleBoxClick = (e) => {
   const { id } = e.target;
 
   const box = document.getElementById(id);
-  box.style.background = 'red';
+  // box.style.background = 'red';
   socket.send(id)
 }
 

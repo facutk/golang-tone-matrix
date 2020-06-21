@@ -6,11 +6,8 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gorilla/websocket"
 	_ "github.com/heroku/x/hmetrics/onload"
 )
-
-var upgrader = websocket.Upgrader{}
 
 func echo(w http.ResponseWriter, r *http.Request) {
 	c, err := upgrader.Upgrade(w, r, nil)
@@ -36,6 +33,8 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	port := os.Getenv("PORT")
+	hub := newHub()
+	go hub.run()
 
 	if port == "" {
 		log.Fatal("$PORT must be set")
@@ -58,6 +57,10 @@ func main() {
 	})
 
 	router.GET("/echo", gin.WrapF(echo))
+
+	router.GET("/ws", gin.WrapF(func(w http.ResponseWriter, r *http.Request) {
+		serveWs(hub, w, r)
+	}))
 
 	router.Run(":" + port)
 }

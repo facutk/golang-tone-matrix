@@ -18,6 +18,8 @@ type Hub struct {
 
 	// Unregister requests from clients.
 	unregister chan *Client
+
+	tones map[string]bool
 }
 
 func newHub() *Hub {
@@ -26,6 +28,7 @@ func newHub() *Hub {
 		register:   make(chan *Client),
 		unregister: make(chan *Client),
 		clients:    make(map[*Client]bool),
+		tones:      make(map[string]bool),
 	}
 }
 
@@ -40,9 +43,22 @@ func (h *Hub) run() {
 				close(client.send)
 			}
 		case message := <-h.broadcast:
+			var tone = string(message)
+			var action string
+
+			if h.tones[tone] {
+				delete(h.tones, tone)
+				action = "-" + tone
+			} else {
+				h.tones[tone] = true
+				action = "+" + tone
+			}
+
+			msg := []byte(action)
+
 			for client := range h.clients {
 				select {
-				case client.send <- message:
+				case client.send <- msg:
 				default:
 					close(client.send)
 					delete(h.clients, client)

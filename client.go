@@ -70,6 +70,7 @@ func (c *Client) readPump() {
 			break
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+		log.Println(c.hub.tones)
 		c.hub.broadcast <- message
 	}
 }

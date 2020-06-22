@@ -23,8 +23,11 @@ socket.onerror = error => {
 
 socket.onmessage = (e) => {
   console.log("RESPONSE: " + e.data);
-  const box = document.getElementById(e.data);
-  box.style.background = 'red';
+  const action = e.data[0];
+  const id = e.data[1] + e.data[2]
+  const box = document.getElementById(id);
+  const color = action === "+" ? "red" : "tomato"
+  box.style.background = color;
 }
 
 const handlePingButtonClick = async () => {

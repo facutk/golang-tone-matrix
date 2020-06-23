@@ -41,6 +41,11 @@ const handleBoxClick = (e) => {
   const { id } = e.target;
 
   const box = document.getElementById(id);
+  const action = box.style.background === 'red' ? "-" : "+";
+
+  const color = action === "+" ? "red" : "tomato"
+  box.style.background = color;
+
   // box.style.background = 'red';
   socket.send(id)
 }

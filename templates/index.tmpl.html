@@ -3,6 +3,7 @@
 <title>golang tone matrix</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <script>
+const initialState = {{ .initialState }};
 let socket = new WebSocket("ws" + ((location.protocol.indexOf('s') > 0) ? 's' : '') + "://" + location.host + "/ws");
 console.log("Attempting Connection...");
 
@@ -70,6 +71,11 @@ window.onload = () => {
       return row;
     })());
   }
+
+  initialState.forEach((id) => {
+    const box = document.getElementById(id);
+    box.style.background = "red";
+  });
 
   pingButton.onclick = handlePingButtonClick;
 }

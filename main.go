@@ -47,7 +47,13 @@ func main() {
 	router.StaticFile("/favicon.ico", "./static/favicon.ico")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		keys := make([]string, 0, len(hub.tones))
+		for k := range hub.tones {
+			keys = append(keys, k)
+		}
+		c.HTML(http.StatusOK, "index.tmpl.html", gin.H{
+			"initialState": keys,
+		})
 	})
 
 	router.GET("/ping", func(c *gin.Context) {

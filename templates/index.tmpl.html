@@ -58,6 +58,21 @@ const handleOverlayClick = (e) => {
   // https://marcgg.com/blog/2016/11/01/javascript-audio/
 }
 
+const tone = {
+  'b': 493.9,
+  'a': 466.2,
+  '9': 440.0,
+  '8': 415.3,
+  '7': 392.0,
+  '6': 370.0,
+  '5': 349.2,
+  '4': 329.6,
+  '3': 311.1,
+  '2': 293.7,
+  '1': 277.2,
+  '0': 261.6
+};
+
 const handleBoxClick = (e) => {
   const { id } = e.target;
 
@@ -67,6 +82,8 @@ const handleBoxClick = (e) => {
   const color = action === "+" ? "red" : "tomato"
   box.style.background = color;
 
+  example4(tone[id[0]], 'sine');
+
   // box.style.background = 'red';
   socket.send(id)
 }
@@ -74,16 +91,16 @@ const handleBoxClick = (e) => {
 window.onload = () => {
   context = new AudioContext()
 
-  for (let i = 0; i < 16; i += 1) {
+  for (let i = 0; i < 12; i += 1) {
     document.getElementById("grid").appendChild((() => {
       const row = document.createElement("div");
       row.className = "row";
 
-      for (let j = 0; j < 16; j += 1) {
+      for (let j = 0; j < 12; j += 1) {
         row.appendChild((() => {
           const box = document.createElement("div");
           box.className = "box";
-          box.id = `${(16 - 1 - i).toString(16)}${j.toString(16)}`;
+          box.id = `${(12 - 1 - i).toString(16)}${j.toString(16)}`;
           box.addEventListener("click", handleBoxClick);
 
           return box;
